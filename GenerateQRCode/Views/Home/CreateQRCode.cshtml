@@ -1,0 +1,33 @@
+﻿@model GenerateQRCode.Models.QRCodeModel
+@{
+    ViewData["Title"] = "QR Oluştur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <form asp-action="CreateQRCode">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="QRCodeText" class="control-label"></label>
+                <input asp-for="QRCodeText" class="form-control" required />
+                <span asp-validation-for="QRCodeText" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="QR Oluştur" class="btn btn-primary text-center" />
+            </div>
+            @if (ViewBag.QrCodeUri != null)
+            {
+                <div class="form-group mt-5">
+                    <img src="@ViewBag.QrCodeUri" class="img-thumbnail" />
+                </div>
+            }
+
+            @if (TempData["QrCodeDownloadLink"] != null && TempData["QrCodeFileName"] != null)
+            {
+                <a href="@TempData["QrCodeDownloadLink"]" download="@TempData["QrCodeFileName"]" class="btn btn-secondary mt-3"><i class="fa fa-download"></i>  QR Kodu İndir</a>
+            }
+        </form>
+    </div>
+</div>
+
